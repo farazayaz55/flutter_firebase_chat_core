@@ -172,7 +172,6 @@ class FirebaseChatCore {
       'metadata': user.metadata,
       'role': user.role?.toShortString(),
       'updatedAt': FieldValue.serverTimestamp(),
-      'status': "offline",
     });
   }
 
@@ -441,8 +440,8 @@ class FirebaseChatCore {
 
 //create user in firestore status offline krdia
 //on login you will make it online so write a function for that
-  void setstatus2() {
-    print("Hello");
+  void setstatus3() {
+    print("object");
   }
 
 //on loginscreen we will pass uid and update the status as online of the user with uid
@@ -450,6 +449,7 @@ class FirebaseChatCore {
     if (firebaseUser == null) return const Stream.empty();
     return getFirebaseFirestore()
         .collection(config.usersCollectionName)
+        .where(['firstName'], isEqualTo: "Kaela")
         .snapshots()
         .map(
           (snapshot) => snapshot.docs.fold<List<types.User>>(
@@ -458,7 +458,7 @@ class FirebaseChatCore {
               if (firebaseUser!.uid == doc.id) return previousValue;
 
               final data = doc.data();
-
+              //you can only have this 4 attrs because they are coming from user so you must have to do something with the lastSeen ok!!!
               data['createdAt'] = data['createdAt']?.millisecondsSinceEpoch;
               data['id'] = doc.id;
               data['lastSeen'] = data['lastSeen']?.millisecondsSinceEpoch;
