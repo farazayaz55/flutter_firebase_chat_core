@@ -438,8 +438,12 @@ class FirebaseChatCore {
           ),
         );
   }
+
 //create user in firestore status offline krdia
 //on login you will make it online so write a function for that
+  void setstatus() {
+    print("Hello");
+  }
 
 //on loginscreen we will pass uid and update the status as online of the user with uid
   Stream<List<types.User>> onlineusers() {
