@@ -441,7 +441,7 @@ class FirebaseChatCore {
 
 //create user in firestore status offline krdia
 //on login you will make it online so write a function for that
-  void setstatus() {
+  void setstatus2() {
     print("Hello");
   }
 
@@ -458,17 +458,11 @@ class FirebaseChatCore {
               if (firebaseUser!.uid == doc.id) return previousValue;
 
               final data = doc.data();
-              final data2 = doc.data();
-              data2['id'] = doc.id;
-              data2['createdAt'] = Null;
-              data2['lastSeen'] = Null;
-              data2['status'] = Null;
 
               data['createdAt'] = data['createdAt']?.millisecondsSinceEpoch;
               data['id'] = doc.id;
               data['lastSeen'] = data['lastSeen']?.millisecondsSinceEpoch;
               data['updatedAt'] = data['updatedAt']?.millisecondsSinceEpoch;
-              // data['status'] = data['status']?.millisecondsSinceEpoch;
 
               return [...previousValue, types.User.fromJson(data)];
             },
