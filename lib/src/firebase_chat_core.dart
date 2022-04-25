@@ -460,20 +460,17 @@ class FirebaseChatCore {
               final data = doc.data();
               final data2 = doc.data();
               data2['id'] = doc.id;
-              data['createdAt'] = Null;
-              data['lastSeen'] = Null;
-              data['status'] = Null;
+              data2['createdAt'] = Null;
+              data2['lastSeen'] = Null;
+              data2['status'] = Null;
 
               data['createdAt'] = data['createdAt']?.millisecondsSinceEpoch;
               data['id'] = doc.id;
               data['lastSeen'] = data['lastSeen']?.millisecondsSinceEpoch;
               data['updatedAt'] = data['updatedAt']?.millisecondsSinceEpoch;
-              data['status'] = data['status']?.millisecondsSinceEpoch;
-              if (data['status'] == "offline") {
-                return [...previousValue, types.User.fromJson(data)];
-              } else {
-                return [...previousValue, types.User.fromJson(data2)];
-              }
+              // data['status'] = data['status']?.millisecondsSinceEpoch;
+
+              return [...previousValue, types.User.fromJson(data)];
             },
           ),
         );
