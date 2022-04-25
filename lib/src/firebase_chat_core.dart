@@ -172,6 +172,7 @@ class FirebaseChatCore {
       'metadata': user.metadata,
       'role': user.role?.toShortString(),
       'updatedAt': FieldValue.serverTimestamp(),
+      'status': "offline",
     });
   }
 
@@ -437,4 +438,41 @@ class FirebaseChatCore {
           ),
         );
   }
+//create user in firestore status offline krdia
+//on login you will make it online so write a function for that
+
+//on loginscreen we will pass uid and update the status as online of the user with uid
+  void setstatus(String uid) {
+    if (firebaseUser == null) {
+      // ignore: avoid_print
+      print("error");
+    } else {
+      // ignore: avoid_print
+      print(getFirebaseFirestore().collection(config.usersCollectionName).id);
+    }
+  }
+
+//   Stream<List<types.User>> onlineusers() {
+//     if (firebaseUser == null) return const Stream.empty();
+//     return getFirebaseFirestore()
+//         .collection(config.usersCollectionName)
+//         .snapshots()
+//         .map(
+//           (snapshot) => snapshot.docs.fold<List<types.User>>(
+//             [],
+//             (previousValue, doc) {
+//               if (firebaseUser!.uid == doc.id) return previousValue;
+
+//               final data = doc.data();
+
+//               data['createdAt'] = data['createdAt']?.millisecondsSinceEpoch;
+//               data['id'] = doc.id;
+//               data['lastSeen'] = data['lastSeen']?.millisecondsSinceEpoch;
+//               data['updatedAt'] = data['updatedAt']?.millisecondsSinceEpoch;
+
+//               return [...previousValue, types.User.fromJson(data)];
+//             },
+//           ),
+//         );
+//   }
 }
