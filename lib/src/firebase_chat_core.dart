@@ -442,34 +442,36 @@ class FirebaseChatCore {
 //on login you will make it online so write a function for that
 
 //on loginscreen we will pass uid and update the status as online of the user with uid
-  DocumentReference<Map<String, dynamic>> setstatus(String uid) {
-    // ignore: avoid_print
+  Stream<List<types.User>> onlineusers() {
+    if (firebaseUser == null) return const Stream.empty();
     return getFirebaseFirestore()
         .collection(config.usersCollectionName)
-        .doc(uid);
+        .snapshots()
+        .map(
+          (snapshot) => snapshot.docs.fold<List<types.User>>(
+            [],
+            (previousValue, doc) {
+              if (firebaseUser!.uid == doc.id) return previousValue;
+
+              final data = doc.data();
+              final data2 = doc.data();
+              data2['id'] = doc.id;
+              data['createdAt'] = Null;
+              data['lastSeen'] = Null;
+              data['status'] = Null;
+
+              data['createdAt'] = data['createdAt']?.millisecondsSinceEpoch;
+              data['id'] = doc.id;
+              data['lastSeen'] = data['lastSeen']?.millisecondsSinceEpoch;
+              data['updatedAt'] = data['updatedAt']?.millisecondsSinceEpoch;
+              data['status'] = data['status']?.millisecondsSinceEpoch;
+              if (data['status'] == "offline") {
+                return [...previousValue, types.User.fromJson(data)];
+              } else {
+                return [...previousValue, types.User.fromJson(data2)];
+              }
+            },
+          ),
+        );
   }
-// connected my code with this library
-//   Stream<List<types.User>> onlineusers() {
-//     if (firebaseUser == null) return const Stream.empty();
-//     return getFirebaseFirestore()
-//         .collection(config.usersCollectionName)
-//         .snapshots()
-//         .map(
-//           (snapshot) => snapshot.docs.fold<List<types.User>>(
-//             [],
-//             (previousValue, doc) {
-//               if (firebaseUser!.uid == doc.id) return previousValue;
-
-//               final data = doc.data();
-
-//               data['createdAt'] = data['createdAt']?.millisecondsSinceEpoch;
-//               data['id'] = doc.id;
-//               data['lastSeen'] = data['lastSeen']?.millisecondsSinceEpoch;
-//               data['updatedAt'] = data['updatedAt']?.millisecondsSinceEpoch;
-
-//               return [...previousValue, types.User.fromJson(data)];
-//             },
-//           ),
-//         );
-//   }
 }
