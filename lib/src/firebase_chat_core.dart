@@ -442,16 +442,13 @@ class FirebaseChatCore {
 //on login you will make it online so write a function for that
 
 //on loginscreen we will pass uid and update the status as online of the user with uid
-  void setstatus(String uid) {
-    if (firebaseUser == null) {
-      // ignore: avoid_print
-      print("error");
-    } else {
-      // ignore: avoid_print
-      print(getFirebaseFirestore().collection(config.usersCollectionName).id);
-    }
+  DocumentReference<Map<String, dynamic>> setstatus(String uid) {
+    // ignore: avoid_print
+    return getFirebaseFirestore()
+        .collection(config.usersCollectionName)
+        .doc(uid);
   }
-
+// connected my code with this library
 //   Stream<List<types.User>> onlineusers() {
 //     if (firebaseUser == null) return const Stream.empty();
 //     return getFirebaseFirestore()
